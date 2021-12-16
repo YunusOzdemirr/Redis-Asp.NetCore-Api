@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CacheTest.Creators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,11 +35,10 @@ namespace CacheTest
             services.AddControllers();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-               
+            services.AddSingleton<Creator>();
             services.AddDistributedRedisCache(option =>
             {
                 option.Configuration = this.Configuration.GetSection("RedisConnectionSettings")["ConnectionString"];
-              
             });
             services.AddSwaggerGen(c =>
             {
