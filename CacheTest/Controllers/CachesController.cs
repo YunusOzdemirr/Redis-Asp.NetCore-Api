@@ -41,13 +41,13 @@ namespace CacheTest.Controllers
         //    }
         //}
 
-
+        
 
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result=_creator.GetAllStockAsync2();
+            var result=await _creator.GetAllStockAsync2();
             if (result!=null)
             {
                 return Ok(result);

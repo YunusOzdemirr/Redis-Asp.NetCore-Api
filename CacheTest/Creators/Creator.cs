@@ -44,7 +44,7 @@ namespace CacheTest.Creators
                 }
             }
         }
-      
+
         public List<Stock> GetAllStockAsync()
         {
             using (ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("127.0.0.1:6379,allowAdmin=true"))
@@ -91,18 +91,13 @@ namespace CacheTest.Creators
         }
 
 
-        public List<Stock> GetAllStockAsync2()
+        public async Task<List<Stock>> GetAllStockAsync2()
         {
-            using (ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("127.0.0.1:6379,allowAdmin=true"))
-            {
-                IDatabase db = redis.GetDatabase();
-                var keys = redis.GetServer("127.0.0.1", 6379).Keys();
 
-                string[] keysArr = keys.Select(key => (string)key).ToArray();
-                    var item = _distributedCache.GetString("Stocks");
-                    var deserializeObject = JsonConvert.DeserializeObject<List<Stock>>(item);
-                return deserializeObject;
-            }
+            var item = await _distributedCache.GetStringAsync("Stocks");
+            var deserializeObject = JsonConvert.DeserializeObject<List<Stock>>(item);
+            return deserializeObject;
+
         }
     }
 }
