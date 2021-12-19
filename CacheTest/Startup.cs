@@ -36,6 +36,7 @@ namespace CacheTest
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSingleton<Creator>();
+            services.AddSingleton<LoremCreator>();
             services.AddDistributedRedisCache(option =>
             {
                 option.Configuration = this.Configuration.GetSection("RedisConnectionSettings")["ConnectionString"];
