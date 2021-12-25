@@ -10,13 +10,13 @@ namespace CacheTest.Creators
     public class LoremCreator
     {
         IDistributedCache _distributedCache;
-public LoremCreator(IDistributedCache distributedCache)
+        public LoremCreator(IDistributedCache distributedCache)
         {
             _distributedCache = distributedCache;
         }
         public async Task<string> GetAllArticle()
         {
-           var articles= await _distributedCache.GetStringAsync("Articles");
+            var articles = await _distributedCache.GetStringAsync("Articles");
             var convertJson = JsonConvert.DeserializeObject<StringBuilder>(articles);
             return convertJson.ToString();
         }
